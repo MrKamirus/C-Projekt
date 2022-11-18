@@ -1,0 +1,2 @@
+Powtarzajacy element to 2
+Czas wykonywania programu: 0.001111 sekundy
