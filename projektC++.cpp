@@ -13,14 +13,11 @@
 using namespace std;
 //tworzenie funkcji szukającej powtarzającego się elementu
 int pow(vector<int> tablica) {
-	int x=0;
 	for (int i = 0; i <= tablica.size(); i++) { //funkcje szukające powtarzającego się elemetu
-		
 		for (int j = 0; j <= tablica.size(); j++) {
-			x++;
 			if (i == j) { break; } 
 			if (tablica[i] == tablica[j]) { //jesli znalezlismy powtarzajacy element to go zwracamy
-				return x;
+				return tablica[i];
 
 			}
 		}
@@ -42,32 +39,22 @@ vector<int> pobranie_danych(string nazwa) {// funkcja pobierajaca dane z pliku d
 	indata.close(); //zamkniecie pliku
 	return data;
 }
-void zapisanie_danych(string nazwa, long int elementy, long int ins) { // funkcja zapisujaca dane z wektora do pliku
+void zapisanie_danych(string nazwa, int pow, double czas) { // funkcja zapisujaca dane z wektora do pliku
 	ofstream do_pliku(nazwa);
-	do_pliku << elementy;
-	do_pliku << ins;
+	do_pliku<< "Powtarzajacy element to " << pow << endl; // zapisanie elementow do pliku
+	do_pliku <<"Czas wykonywania programu: " << czas << " sekundy";
 }
-
 
 int main()
 {
-	
-	vector<int> dane = pobranie_danych("dane.txt");
 	auto start = chrono::high_resolution_clock::now(); // start pomiaru czasu
-	for (long int i = 0; i <= 1000000; i++) {
-		dane.push_back(i);
-		dane.push_back(i);
-		int ins = pow(dane);
-		zapisanie_danych("zlozonosc.txt", i, ins);
-		dane.erase(dane.begin() + i);
-	}
-	//dane.push_back(max)
-	
-	//cout << "Powtarzajacy element to " << pow(dane) << endl;
-	//auto koniec = chrono::high_resolution_clock::now(); //koniec pomiaru czasu
-	//auto miara_czasu = chrono::duration_cast<chrono::nanoseconds>(koniec - start);
-	//double czas = miara_czasu.count() * 1e-9;
-	//zapisanie_danych("zapis.txt", pow(dane), czas);
+
+	vector<int> dane = pobranie_danych("dane.txt");
+	cout << "Powtarzajacy element to " << pow(dane) << endl;
+	auto koniec = chrono::high_resolution_clock::now(); //koniec pomiaru czasu
+	auto miara_czasu = chrono::duration_cast<chrono::nanoseconds>(koniec - start);
+	double czas = miara_czasu.count() * 1e-9;
+	zapisanie_danych("zapis.txt", pow(dane), czas);
 
 	return 0;
 }
